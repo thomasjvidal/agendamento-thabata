@@ -37,9 +37,9 @@ const Newsletter = () => {
           </div>
         </div>
         
-        <h2 className="text-5xl font-display font-bold mb-4 text-left">Receba dicas de saúde</h2>
+        <h2 className="text-5xl font-display font-bold mb-4 text-left">Receba dicas de beleza</h2>
         <p className="text-xl text-gray-700 mb-10 text-left">
-          Seja a primeira a receber dicas sobre endocrinologia, nutrição e bem-estar
+          Seja a primeira a receber dicas sobre maquiagem, tendências e tutoriais exclusivos
         </p>
         
         <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4 items-start md:items-center">

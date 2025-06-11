@@ -110,14 +110,15 @@ const Hero = () => {
               className="section-title text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight opacity-0 animate-fade-in" 
               style={{ animationDelay: "0.3s" }}
             >
-              Dra. Daniele Ferreira
+              Thábata Braga
             </h1>
             
             <p 
               style={{ animationDelay: "0.5s" }} 
               className="section-subtitle mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed opacity-0 animate-fade-in text-gray-950 font-normal text-base sm:text-lg text-left"
             >
-              Endocrinologia · Obesidade · Diabetes · Tireoide · Metabolismo
+              Th Beauty Makeup Clinic • Barra Mansa - RJ<br/>
+              Maquiagem para Noivas • Cursos & Masterclasses • Automaquiagem
             </p>
             
             <div 
@@ -140,7 +141,7 @@ const Hero = () => {
                   boxShadow: '0 4px 15px rgba(184, 148, 31, 0.3), inset 0 1px 0 rgba(255,255,255,0.2)',
                 }}
               >
-                Agendar Consulta Online
+                Agendar Atendimento
                 <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
             </div>
@@ -163,7 +164,7 @@ const Hero = () => {
                 <img 
                   ref={imageRef} 
                   src="/dani-photo.jpg" 
-                  alt="Dra. Daniele Ferreira - Endocrinologista especializada" 
+                  alt="Thábata Braga - Maquiadora Profissional especializada" 
                   className="w-full h-auto object-cover transition-transform duration-500 ease-out" 
                   style={{ transformStyle: 'preserve-3d' }} 
                 />

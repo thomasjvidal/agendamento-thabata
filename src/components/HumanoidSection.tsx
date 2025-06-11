@@ -13,20 +13,20 @@ const HumanoidSection = () => {
         </div>
         
         {/* Título padronizado - tamanho maior e consistente */}
-        <h2 className="text-6xl font-display font-bold mb-10 text-left">Sobre a Dra. Daniele</h2>
+        <h2 className="text-6xl font-display font-bold mb-10 text-left">Sobre Thábata Braga</h2>
         
         {/* Conteúdo com fontes maiores e padronizadas */}
         <div className="max-w-4xl">
           <p className="text-2xl text-gray-700 leading-relaxed mb-8">
-            Médica endocrinologista com formação pela USP e especialização em Endocrinologia pela Harvard Medical School. Com mais de uma década de experiência no tratamento de obesidade, diabetes, distúrbios da tireoide, menopausa e metabolismo.
+            Thábata Braga é maquiadora profissional e fundadora da **Th Beauty Makeup Clinic**, localizada em Barra Mansa – RJ. Reconhecida por realçar a beleza de cada cliente com sofisticação e versatilidade, ela se destaca em técnicas refinadas que valorizam tanto cerimônias elegantes quanto produções mais modernas.
           </p>
           
           <p className="text-2xl text-gray-700 leading-relaxed mb-10">
-            Dedico-me ao atendimento humanizado e totalmente personalizado, utilizando as mais recentes evidências científicas para proporcionar os melhores resultados aos meus pacientes.
+            Thábata valoriza empoderamento e expressão pessoal através da maquiagem, unindo estética e confiança. Especializada em pele iluminada com acabamento impecável, olhos com cores sofisticadas e looks que se adaptam a diferentes tipos de pele e formatos de rosto.
           </p>
           
           <div className="inline-flex items-center px-8 py-4 bg-gray-100 rounded-full text-lg text-gray-600 font-medium">
-            <span>CRM: 5201291467 RJ</span>
+            <span>Th Beauty Makeup Clinic • Barra Mansa - RJ</span>
           </div>
         </div>
       </div>

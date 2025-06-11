@@ -19,38 +19,53 @@ export const EMAILJS_CONFIG = {
   enabled: true // E-mails reais ativados!
 };
 
-// Informações de contato
-export const CONTACTS = {
-  whatsapp: "5524999887766", // Número com código do país
-  email: "contatodradanieleferreira@gmail.com",
-  instagram: "@dra.danieleferreira.endo",
-  pixKey: "contatodradanieleferreira@pix.com" // Chave Pix
+// Configuração de contato
+export const CONTACT_INFO = {
+  email: "thabatabraga@thbeautymakeup.com",
+  instagram: "@thabatabraga.makeup",
+  pixKey: "thabatabraga@thbeautymakeup.com" // Chave Pix
 };
 
-// Valores das consultas
+// Valores dos serviços
+export const SERVICE_PRICES = {
+  'pacote-diamante': 2000.00,
+  'pacote-ouro': 1500.00,
+  'master-vip': 3000.00,
+  'beauty-expert': 1200.00,
+  'vip-individual': 800.00,
+  'maquiagem': 250.00,
+  'penteado-solto': 180.00,
+  'penteado-preso': 200.00,
+  'baby-liss': 100.00
+};
+
+// Valores dos atendimentos básicos
 export const CONSULTATION_PRICES = {
-  primeira: 350.00,
-  retorno: 300.00
+  primeira: 250,
+  retorno: 200
 };
 
-// Informações da médica
-export const DOCTOR_INFO = {
-  name: "Dra. Daniele Ferreira",
-  fullName: "Dra. Daniele Ferreira - Endocrinologista",
-  crm: "CRM-RJ 5201291467",
+// Informações da profissional
+export const PROFESSIONAL_INFO = {
+  name: "Thábata Braga",
+  fullName: "Thábata Braga - Th Beauty Makeup Clinic",
+  specialty: "Maquiagem Profissional",
   specialties: [
-    "Endocrinologia",
-    "Diabetes Mellitus", 
-    "Obesidade e Emagrecimento",
-    "Tireoide",
-    "Menopausa e Reposição Hormonal",
-    "Metabolismo"
+    "Pacote Diamante Noiva (R$ 2.000,00)",
+    "Pacote Ouro Noiva (R$ 1.500,00)", 
+    "Master VIP (R$ 3.000,00)",
+    "Beauty Expert Class (R$ 1.200,00)",
+    "VIP Individual (R$ 800,00)",
+    "Maquiagem (R$ 250,00)",
+    "Penteado Solto (R$ 180,00)",
+    "Penteado Preso (R$ 200,00)",
+    "Baby Liss (R$ 100,00)"
   ],
-  mainSpecialty: "Endocrinologia",
-  location: "Rio de Janeiro - RJ",
-  bio: "Médica endocrinologista com formação pela USP e especialização em Endocrinologia pela Harvard Medical School. Com mais de uma década de experiência no tratamento de obesidade, diabetes, distúrbios da tireoide, menopausa e metabolismo.",
-  experience: "10+ anos",
-  formation: "USP e Harvard Medical School"
+  mainSpecialty: "Maquiagem para Noivas",
+  location: "Barra Mansa - RJ",
+  bio: "Thábata Braga é maquiadora profissional e fundadora da Th Beauty Makeup Clinic, localizada em Barra Mansa – RJ. Reconhecida por realçar a beleza de cada cliente com sofisticação e versatilidade, ela se destaca em técnicas refinadas que valorizam tanto cerimônias elegantes quanto produções mais modernas.",
+  experience: "Profissional especializada",
+  formation: "Th Beauty Makeup Clinic"
 };
 
 // Horários disponíveis

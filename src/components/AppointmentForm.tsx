@@ -45,7 +45,23 @@ const AppointmentForm = () => {
   };
 
   const getConsultationValue = () => {
-    return formData.appointmentType === 'primeira' ? 'R$ 350,00' : 'R$ 300,00';
+    if (!formData.specialty) {
+      return formData.appointmentType === 'primeira' ? 'R$ 250,00' : 'R$ 200,00';
+    }
+    
+    const serviceValues = {
+      'pacote-diamante': 'R$ 2.000,00',
+      'pacote-ouro': 'R$ 1.500,00',
+      'master-vip': 'R$ 3.000,00',
+      'beauty-expert': 'R$ 1.200,00',
+      'vip-individual': 'R$ 800,00',
+      'maquiagem': 'R$ 250,00',
+      'penteado-solto': 'R$ 180,00',
+      'penteado-preso': 'R$ 200,00',
+      'baby-liss': 'R$ 100,00'
+    };
+    
+    return serviceValues[formData.specialty] || 'R$ 250,00';
   };
 
   const handleStep1Submit = (e: React.FormEvent) => {
@@ -83,8 +99,8 @@ const AppointmentForm = () => {
   };
 
   const copyPixKey = async () => {
-    try {
-              await navigator.clipboard.writeText("contatodradanieleferreira@gmail.com");
+          try {
+        await navigator.clipboard.writeText("thabatabraga@thbeautymakeup.com");
       setPixCopied(true);
       toast({
         title: "Chave Pix copiada!",
@@ -108,7 +124,7 @@ const AppointmentForm = () => {
       const emailParams = {
         to_name: appointmentData.nome,
         to_email: appointmentData.email,
-        from_name: "Dra. Daniele Ferreira",
+        from_name: "Thábata Braga - Th Beauty Makeup Clinic",
         patient_name: appointmentData.nome,
         appointment_type: appointmentData.tipoAtendimento,
         consultation_type: appointmentData.tipoConsulta,
@@ -116,7 +132,7 @@ const AppointmentForm = () => {
         appointment_time: appointmentData.hora,
         appointment_value: `R$ ${appointmentData.valor}`,
         whatsapp: appointmentData.whatsapp,
-        doctor_name: "Dra. Daniele Ferreira"
+        doctor_name: "Thábata Braga"
       };
 
       console.log('📋 Parâmetros do e-mail:', emailParams);
@@ -159,7 +175,7 @@ const AppointmentForm = () => {
       // ----- payload p/ Apps Script -----
       const payload = {
         patient_name: formData.name,
-        appointment_type: formData.appointmentType === 'primeira' ? 'Primeira consulta' : 'Retorno',
+        appointment_type: formData.appointmentType === 'primeira' ? 'Primeiro Atendimento' : 'Atendimento de Retorno',
         consultation_type: formData.specialty,
         appointment_date: formData.date,
         appointment_time: formData.time,
@@ -222,7 +238,7 @@ const AppointmentForm = () => {
           appointment_time_fmt:  payload.appointment_time_fmt,
           appointment_value:     getConsultationValue(),
           meet_link:             meetLink,
-          doctor_name:           "Daniele Ferreira"
+          doctor_name:           "Thábata Braga"
         },
         EMAILJS_CONFIG.publicKey
       );
@@ -238,15 +254,15 @@ const AppointmentForm = () => {
       console.log('🔍 VERCEL DEBUG - Service ID:', EMAILJS_CONFIG.serviceId);
       console.log('🔍 VERCEL DEBUG - Template ID:', EMAILJS_CONFIG.templateId);
       console.log('🔍 VERCEL DEBUG - Public Key:', EMAILJS_CONFIG.publicKey);
-      console.log('🔍 VERCEL DEBUG - Email para:', "contatodradanieleferreira@gmail.com");
+              console.log('🔍 VERCEL DEBUG - Email para:', "thabatabraga@thbeautymakeup.com");
       
       try {
         const doctorEmailResult = await emailjs.send(
           EMAILJS_CONFIG.serviceId,
           EMAILJS_CONFIG.templateId, // template_6oj3mug (mesmo template)
           {
-            to_name:               "Dra. Daniele Ferreira",
-            to_email:              "contatodradanieleferreira@gmail.com",
+            to_name:               "Thábata Braga",
+                          to_email:              "thabatabraga@thbeautymakeup.com",
             patient_name:          payload.patient_name,
             appointment_type:      payload.appointment_type,
             consultation_type_cap: payload.consultation_type_cap,
@@ -254,7 +270,7 @@ const AppointmentForm = () => {
             appointment_time_fmt:  payload.appointment_time_fmt,
             appointment_value:     getConsultationValue(),
             meet_link:             meetLink,
-            doctor_name:           "Daniele Ferreira"
+            doctor_name:           "Thábata Braga"
           },
           EMAILJS_CONFIG.publicKey
         );
@@ -301,13 +317,13 @@ const AppointmentForm = () => {
             <h2 className="text-3xl font-bold mb-6" style={{ color: '#22c55e' }}>Agendamento Confirmado!</h2>
             
             <div className="bg-gray-50 rounded-lg p-6 mb-6">
-              <h3 className="text-lg font-semibold mb-4">Resumo da Consulta</h3>
+              <h3 className="text-lg font-semibold mb-4">Resumo do Agendamento</h3>
               <div className="space-y-2 text-left">
                 <p><strong>Nome:</strong> {formData.name}</p>
                 <p><strong>E-mail:</strong> {formData.email}</p>
                 <p><strong>WhatsApp:</strong> {formData.phone}</p>
-                <p><strong>Tipo:</strong> {formData.appointmentType === 'primeira' ? 'Primeira Consulta' : 'Consulta de Retorno'}</p>
-                <p><strong>Especialidade:</strong> {formData.specialty}</p>
+                <p><strong>Tipo:</strong> {formData.appointmentType === 'primeira' ? 'Primeiro Atendimento' : 'Atendimento de Retorno'}</p>
+                <p><strong>Serviço:</strong> {formData.specialty}</p>
                 <p><strong>Data:</strong> {formData.date}</p>
                 <p><strong>Horário:</strong> {formData.time}</p>
                 <p><strong>Valor:</strong> {getConsultationValue()}</p>
@@ -321,10 +337,10 @@ const AppointmentForm = () => {
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
               <h4 className="font-semibold text-blue-800 mb-2">Próximos Passos</h4>
-              <p className="text-blue-700 text-sm">
-                Você receberá instruções detalhadas por e-mail. A Dra. Daniele também foi notificada sobre seu agendamento. 
-                Prepare-se trazendo seus exames mais recentes para a consulta.
-              </p>
+                              <p className="text-blue-700 text-sm">
+                  Você receberá instruções detalhadas por e-mail. A Thábata também foi notificada sobre seu agendamento. 
+                  Para serviços de maquiagem, chegue com o rosto limpo e hidratado.
+                </p>
             </div>
           </div>
         </div>
@@ -338,7 +354,7 @@ const AppointmentForm = () => {
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Agendar Consulta</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Agendar Atendimento</h2>
             <p className="text-lg text-gray-600">Preencha seus dados e escolha o melhor horário</p>
           </div>
 
@@ -404,8 +420,8 @@ const AppointmentForm = () => {
                       <SelectValue placeholder="Selecione o tipo" />
                     </SelectTrigger>
                     <SelectContent>
-                                          <SelectItem value="primeira">Primeira Consulta (R$ 350,00)</SelectItem>
-                    <SelectItem value="retorno">Consulta de Retorno (R$ 300,00)</SelectItem>
+                      <SelectItem value="primeira">Primeiro Atendimento (R$ 250,00)</SelectItem>
+                      <SelectItem value="retorno">Atendimento de Retorno (R$ 200,00)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -423,18 +439,21 @@ const AppointmentForm = () => {
               <h3 className="text-xl font-semibold mb-4">Detalhes</h3>
               <form onSubmit={handleStep2Submit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Especialidade da consulta</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Tipo de serviço</label>
                   <Select value={formData.specialty} onValueChange={(value) => handleInputChange('specialty', value)}>
                     <SelectTrigger className="select-golden">
-                      <SelectValue placeholder="Selecione a especialidade" />
+                      <SelectValue placeholder="Selecione o serviço" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="geral">Endocrinologia Geral</SelectItem>
-                      <SelectItem value="obesidade">Obesidade</SelectItem>
-                      <SelectItem value="diabetes">Diabetes</SelectItem>
-                      <SelectItem value="tireoide">Tireoide</SelectItem>
-                      <SelectItem value="menopausa">Menopausa</SelectItem>
-                      <SelectItem value="metabolismo">Metabolismo</SelectItem>
+                      <SelectItem value="pacote-diamante">Pacote Diamante Noiva (R$ 2.000,00)</SelectItem>
+                      <SelectItem value="pacote-ouro">Pacote Ouro Noiva (R$ 1.500,00)</SelectItem>
+                      <SelectItem value="master-vip">Master VIP (R$ 3.000,00)</SelectItem>
+                      <SelectItem value="beauty-expert">Beauty Expert Class (R$ 1.200,00)</SelectItem>
+                      <SelectItem value="vip-individual">VIP Individual (R$ 800,00)</SelectItem>
+                      <SelectItem value="maquiagem">Maquiagem (R$ 250,00)</SelectItem>
+                      <SelectItem value="penteado-solto">Penteado Solto (R$ 180,00)</SelectItem>
+                      <SelectItem value="penteado-preso">Penteado Preso (R$ 200,00)</SelectItem>
+                      <SelectItem value="baby-liss">Baby Liss (R$ 100,00)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -489,12 +508,12 @@ const AppointmentForm = () => {
               
               <div className="bg-gray-50 rounded-lg p-6">
                 <div className="mb-4">
-                  <p className="text-sm text-gray-600 mb-2">Valor da consulta:</p>
+                  <p className="text-sm text-gray-600 mb-2">Valor do serviço:</p>
                   <p className="text-xl font-bold text-gray-900">{getConsultationValue()}</p>
                 </div>
                 <p className="text-sm text-gray-600 mb-4">Chave Pix:</p>
                 <div className="flex items-center gap-2 p-3 bg-white rounded border">
-                  <span className="flex-1 font-mono text-sm">contatodradanieleferreira@gmail.com</span>
+                  <span className="flex-1 font-mono text-sm">thabatabraga@thbeautymakeup.com</span>
                   <Button size="sm" variant="outline" onClick={copyPixKey}>
                     {pixCopied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                   </Button>

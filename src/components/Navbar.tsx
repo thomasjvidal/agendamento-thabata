@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
@@ -52,11 +51,11 @@ const Navbar = () => {
             e.preventDefault();
             scrollToTop();
           }}
-          aria-label="Dra. Daniele Ferreira"
+          aria-label="Thábata Braga - Th Beauty Makeup Clinic"
         >
           <img 
             src="/logo.svg" 
-            alt="VJOSEPH - Dra. Daniele Ferreira" 
+            alt="Thábata Braga - Th Beauty Makeup Clinic" 
             className="h-7 sm:h-8" 
           />
         </a>

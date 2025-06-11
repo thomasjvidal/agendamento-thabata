@@ -10,30 +10,30 @@ interface TestimonialProps {
 }
 
 const testimonials: TestimonialProps[] = [{
-  content: "Dra. Daniele me ajudou a perder 15kg de forma saudável. Seu acompanhamento é excepcional e o tratamento totalmente personalizado.",
-  author: "Maria Silva",
-  role: "Paciente - Tratamento de Obesidade",
+  content: "A Thábata fez minha maquiagem de noiva e foi simplesmente perfeita! Durou o dia todo e me senti deslumbrante. Super recomendo!",
+  author: "Isabella Martins",
+  role: "Noiva - Maquiagem para Casamento",
   gradient: "from-slate-800 via-blue-900 to-gray-800",
   backgroundImage: "/background-section1.png",
   avatarImage: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face&auto=format"
 }, {
-  content: "Finalmente consegui controlar meu diabetes. A Dra. Daniele é muito atenciosa e explica tudo de forma clara e objetiva.",
-  author: "João Santos",
-  role: "Paciente - Controle de Diabetes",
+  content: "Fiz o curso de automaquiagem com a Thábata e foi transformador! Aprendi técnicas profissionais e agora me maquio sozinha com confiança.",
+  author: "Fernanda Oliveira",
+  role: "Aluna - Curso de Automaquiagem",
   gradient: "from-amber-700 via-orange-600 to-yellow-700",
   backgroundImage: "/background-section2.png",
   avatarImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
 }, {
-  content: "O tratamento para tireoide foi um sucesso. Hoje me sinto muito melhor e com mais energia. Recomendo demais!",
-  author: "Ana Costa",
-  role: "Paciente - Distúrbios da Tireoide",
+  content: "Maquiagem social incrível! A Thábata entendeu exatamente o que eu queria e criou um look perfeito para minha formatura.",
+  author: "Camila Santos",
+  role: "Cliente - Maquiagem Social",
   gradient: "from-orange-700 via-amber-600 to-yellow-600",
   backgroundImage: "/background-section3.png",
   avatarImage: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
 }, {
-  content: "Excelente profissional! Me ajudou muito na menopausa. Atendimento humanizado e baseado em evidências científicas.",
-  author: "Carmen Rodriguez",
-  role: "Paciente - Menopausa",
+  content: "Profissional excepcional! Fez maquiagem para todas as madrinhas do meu casamento. Ficamos todas lindas e satisfeitas.",
+  author: "Juliana Costa",
+  role: "Noiva - Maquiagem em Grupo",
   gradient: "from-blue-900 via-slate-800 to-gray-900",
   backgroundImage: "/background-section1.png",
   avatarImage: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face"
@@ -85,7 +85,7 @@ const Testimonials = () => {
         </div>
         
         {/* Título padronizado */}
-        <h2 className="text-6xl font-display font-bold mb-10 text-left">O que dizem meus pacientes</h2>
+        <h2 className="text-6xl font-display font-bold mb-10 text-left">O que dizem minhas clientes</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {testimonials.map((testimonial, index) => <TestimonialCard key={index} content={testimonial.content} author={testimonial.author} role={testimonial.role} gradient={testimonial.gradient} backgroundImage={testimonial.backgroundImage} avatarImage={testimonial.avatarImage} />)}

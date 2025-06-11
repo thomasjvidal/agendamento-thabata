@@ -52,14 +52,14 @@ const RobotShowcaseSection = () => {
           <div className="relative">
             <div className="bg-white rounded-2xl p-8 shadow-xl">
               <img 
-                src="/dani-photo.jpg" 
-                alt="Dra. Daniele Ferreira - Endocrinologista" 
+                src="/thabata-photo.jpg" 
+                alt="Thábata Braga - Maquiadora Profissional" 
                 className="w-full h-96 object-cover rounded-xl mb-6"
               />
               <div className="text-center">
-                <h3 className="text-3xl font-semibold text-gray-900 mb-3">Dra. Daniele Ferreira</h3>
-                <p className="text-xl text-gray-600 mb-4">Endocrinologista CRM-RJ 5201291467</p>
-                <p className="text-lg text-gray-500">Especialista em tratamentos hormonais e metabólicos personalizados</p>
+                <h3 className="text-3xl font-semibold text-gray-900 mb-3">Thábata Braga</h3>
+                <p className="text-xl text-gray-600 mb-4">Maquiadora Profissional</p>
+                <p className="text-lg text-gray-500">Especialista em maquiagem para noivas e eventos especiais</p>
               </div>
             </div>
           </div>

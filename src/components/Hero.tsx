@@ -163,7 +163,7 @@ const Hero = () => {
               <div className="relative transition-all duration-500 ease-out overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl">
                 <img 
                   ref={imageRef} 
-                  src="/dani-photo.jpg" 
+                  src="/thabata-photo.jpg" 
                   alt="Thábata Braga - Maquiadora Profissional especializada" 
                   className="w-full h-auto object-cover transition-transform duration-500 ease-out" 
                   style={{ transformStyle: 'preserve-3d' }} 

@@ -69,7 +69,7 @@ const AppointmentForm = () => {
     console.log("Step 1 data:", formData); // Debug
     
     // Validação básica
-    if (!formData.name || !formData.email || !formData.phone || !formData.appointmentType) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.specialty) {
       toast({
         title: "Campos obrigatórios",
         description: "Por favor, preencha todos os campos.",
@@ -86,7 +86,7 @@ const AppointmentForm = () => {
     console.log("Step 2 data:", formData); // Debug
     
     // Validação básica
-    if (!formData.specialty || !formData.date || !formData.time) {
+    if (!formData.date || !formData.time) {
       toast({
         title: "Campos obrigatórios",
         description: "Por favor, preencha todos os campos.",
@@ -412,32 +412,7 @@ const AppointmentForm = () => {
                     required
                   />
                 </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Tipo de atendimento</label>
-                  <Select value={formData.appointmentType} onValueChange={(value) => handleInputChange('appointmentType', value)}>
-                    <SelectTrigger className="select-golden">
-                      <SelectValue placeholder="Selecione o tipo" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="primeira">Primeiro Atendimento (R$ 250,00)</SelectItem>
-                      <SelectItem value="retorno">Atendimento de Retorno (R$ 200,00)</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                
-                <Button type="submit" className="button-primary w-full">
-                  Próximo <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </form>
-            </div>
-          )}
 
-          {/* Step 2: Details */}
-          {currentStep === 2 && (
-            <div className="space-y-6">
-              <h3 className="text-xl font-semibold mb-4">Detalhes</h3>
-              <form onSubmit={handleStep2Submit} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Tipo de serviço</label>
                   <Select value={formData.specialty} onValueChange={(value) => handleInputChange('specialty', value)}>
@@ -458,6 +433,18 @@ const AppointmentForm = () => {
                   </Select>
                 </div>
                 
+                <Button type="submit" className="button-primary w-full">
+                  Próximo <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </form>
+            </div>
+          )}
+
+          {/* Step 2: Details */}
+          {currentStep === 2 && (
+            <div className="space-y-6">
+              <h3 className="text-xl font-semibold mb-4">Detalhes</h3>
+              <form onSubmit={handleStep2Submit} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Data</label>
                   <input 

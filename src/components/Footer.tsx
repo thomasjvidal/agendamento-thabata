@@ -1,6 +1,7 @@
 import React from "react";
 import { MapPin, Phone, Clock, Instagram, Facebook, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Newsletter from "@/components/Newsletter";
 
 const Footer = () => {
   return (
@@ -58,7 +59,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Google Maps */}
+          {/* Google Maps + Newsletter */}
           <div>
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14754.123456789!2d-44.1729389!3d-22.5448264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9e8c7a9a6a6a6a6a%3A0x6a6a6a6a6a6a6a6a!2sBarra%20Mansa%2C%20RJ!5e0!3m2!1spt-BR!2sbr!4v1699999999999!5m2!1spt-BR!2sbr"
@@ -70,6 +71,9 @@ const Footer = () => {
               referrerPolicy="no-referrer-when-downgrade"
               title="Localização Th Beauty Makeup Clinic"
             ></iframe>
+            <div className="mt-8">
+              <Newsletter />
+            </div>
           </div>
         </div>
 

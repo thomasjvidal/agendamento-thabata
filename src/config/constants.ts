@@ -12,11 +12,11 @@ export const DEV_MODE = import.meta.env.DEV || false;
 
 // Configurações do EmailJS (para envio de e-mails)
 export const EMAILJS_CONFIG = {
-  serviceId: "service_692e7gk", // Service ID do EmailJS
-  templateId: "template_6oj3mug", // Template ID do EmailJS para PACIENTE
-  templateIdDoctor: "template_qa53sxk", // Template ID do EmailJS para DRA. DANI
-  publicKey: "Dl7WI_1OVS3msGpV5", // Public Key do EmailJS
-  enabled: true // E-mails reais ativados!
+  serviceId: "service_lkf3m5r",           // Service ID do EmailJS
+  templateId: "template_ihcpx91",         // NotificaçãoCliente
+  templateIdDoctor: "template_1bupdgm",   // NotificaçãoThábata
+  publicKey: "V07ljinFEn_6UMKUA",         // Public Key (atenção: o 'l' é minúsculo!)
+  enabled: true
 };
 
 // Configuração de contato

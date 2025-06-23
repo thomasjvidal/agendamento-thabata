@@ -88,7 +88,7 @@ const AppointmentForm = () => {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [availableTimes] = useState<string[]>(AVAILABLE_TIMES);
-
+  
   const [formData, setFormData] = useState<AppointmentData>({
     name: "",
     email: "",
@@ -96,7 +96,7 @@ const AppointmentForm = () => {
     appointmentType: "primeira",
     specialty: "",
     date: "",
-    time: "",
+      time: "",
     countryCode: "55"
   });
 
@@ -149,8 +149,8 @@ const AppointmentForm = () => {
   };
 
   const copyPixKey = async () => {
-    try {
-      await navigator.clipboard.writeText("thabatabraga@thbeautymakeup.com");
+          try {
+        await navigator.clipboard.writeText("thabatabraga@thbeautymakeup.com");
       setPixCopied(true);
       toast({
         title: "Chave Pix copiada!",
@@ -220,22 +220,22 @@ const AppointmentForm = () => {
       );
       // Enviar e-mail para Thábata
       await emailjs.send(
-        EMAILJS_CONFIG.serviceId,
+          EMAILJS_CONFIG.serviceId,
         EMAILJS_CONFIG.templateId,
-        {
+          {
           to_name: "Thábata Braga",
           to_email: "thabatabraga@thbeautymakeup.com",
           patient_name: payload.patient_name,
           appointment_type: payload.appointment_type,
-          consultation_type_cap: payload.consultation_type_cap,
+            consultation_type_cap: payload.consultation_type_cap,
           appointment_date_fmt: payload.appointment_date_fmt,
           appointment_time_fmt: payload.appointment_time_fmt,
           appointment_value: getConsultationValue(),
           meet_link: meetLink,
           doctor_name: "Thábata Braga"
-        },
-        EMAILJS_CONFIG.publicKey
-      );
+          },
+          EMAILJS_CONFIG.publicKey
+        );
       setIsConfirmed(true);
       toast({
         title: "Agendamento Confirmado!",
@@ -278,10 +278,10 @@ const AppointmentForm = () => {
             </div>
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
               <h4 className="font-semibold text-blue-800 mb-2">Próximos Passos</h4>
-              <p className="text-blue-700 text-sm">
-                Você receberá instruções detalhadas por e-mail. A Thábata também foi notificada sobre seu agendamento. 
-                Para serviços de maquiagem, chegue com o rosto limpo e hidratado.
-              </p>
+                              <p className="text-blue-700 text-sm">
+                  Você receberá instruções detalhadas por e-mail. A Thábata também foi notificada sobre seu agendamento. 
+                  Para serviços de maquiagem, chegue com o rosto limpo e hidratado.
+                </p>
             </div>
           </div>
         </div>
@@ -333,51 +333,51 @@ const AppointmentForm = () => {
                   required
                 />
               </div>
-              <div>
-                <label className="block text-base font-medium text-gray-700 mb-2">WhatsApp</label>
-                <div className="flex gap-2 items-stretch">
+                  <div>
+                    <label className="block text-base font-medium text-gray-700 mb-2">WhatsApp</label>
+                    <div className="flex gap-2 items-stretch">
                   <Select value={formData.countryCode} onValueChange={v => handleInputChange('countryCode', v)}>
                     <SelectTrigger className="w-32 h-12 border-0">
-                      <SelectValue>
+                          <SelectValue>
                         {countries.find(c => c.code === formData.countryCode) ? (
-                          <div className="flex items-center gap-2">
+                              <div className="flex items-center gap-2">
                             <span>{countries.find(c => c.code === formData.countryCode)?.flag}</span>
                             <span>+{formData.countryCode}</span>
-                          </div>
-                        ) : (
-                          <span>País</span>
-                        )}
-                      </SelectValue>
-                    </SelectTrigger>
-                    <SelectContent>
-                      {countries.map((country) => (
-                        <SelectItem key={country.code} value={country.code}>
-                          <div className="flex items-center gap-2">
-                            <span>{country.flag}</span>
-                            <span>+{country.code}</span>
-                            <span className="text-sm text-gray-500">{country.name}</span>
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <Input
-                    className="input-golden flex-1 h-12 text-base"
-                    placeholder="(99) 99999-9999"
+                              </div>
+                            ) : (
+                              <span>País</span>
+                            )}
+                          </SelectValue>
+                        </SelectTrigger>
+                        <SelectContent>
+                          {countries.map((country) => (
+                            <SelectItem key={country.code} value={country.code}>
+                              <div className="flex items-center gap-2">
+                                <span>{country.flag}</span>
+                                <span>+{country.code}</span>
+                                <span className="text-sm text-gray-500">{country.name}</span>
+                              </div>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <Input
+                        className="input-golden flex-1 h-12 text-base"
+                        placeholder="(99) 99999-9999"
                     value={formData.phone}
                     onChange={e => handleInputChange('phone', e.target.value)}
-                    maxLength={15}
-                    required
-                  />
-                </div>
-              </div>
-              <Button type="submit" className="button-primary w-full">
-                Próximo <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-            </form>
+                        maxLength={15}
+                        required
+                      />
+                    </div>
+                  </div>
+                <Button type="submit" className="button-primary w-full">
+                  Próximo <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </form>
           )}
           {currentStep === 2 && (
-            <form onSubmit={handleStep2Submit} className="space-y-4">
+              <form onSubmit={handleStep2Submit} className="space-y-4">
               <div>
                 <label className="block text-base font-medium text-gray-700 mb-2">Tipo de serviço</label>
                 <Select value={formData.specialty} onValueChange={v => handleInputChange('specialty', v)}>
@@ -401,34 +401,34 @@ const AppointmentForm = () => {
                   required
                 />
               </div>
-              <div>
-                <label className="block text-base font-medium text-gray-700 mb-2">Horário Preferido</label>
-                <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label className="block text-base font-medium text-gray-700 mb-2">Horário Preferido</label>
+                  <div className="grid grid-cols-3 gap-3">
                   {availableTimes.map((time) => (
-                    <button
-                      key={time}
-                      type="button"
+                      <button
+                        key={time}
+                        type="button"
                       onClick={() => handleInputChange('time', time)}
-                      className={`py-3 px-4 rounded-xl text-sm font-medium transition-all duration-200 ${
+                        className={`py-3 px-4 rounded-xl text-sm font-medium transition-all duration-200 ${
                         formData.time === time
-                          ? 'bg-pulse-500 text-white shadow-lg'
-                          : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200'
-                      }`}
-                    >
-                      {time}
-                    </button>
-                  ))}
+                            ? 'bg-pulse-500 text-white shadow-lg'
+                            : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200'
+                        }`}
+                      >
+                        {time}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="flex gap-4">
-                <Button type="button" variant="outline" onClick={() => setCurrentStep(1)} className="flex-1">
-                  <ArrowLeft className="mr-2 w-4 h-4" /> Voltar
-                </Button>
-                <Button type="submit" className="button-primary flex-1">
-                  Próximo <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </div>
-            </form>
+                <div className="flex gap-4">
+                  <Button type="button" variant="outline" onClick={() => setCurrentStep(1)} className="flex-1">
+                    <ArrowLeft className="mr-2 w-4 h-4" /> Voltar
+                  </Button>
+                  <Button type="submit" className="button-primary flex-1">
+                    Próximo <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                </div>
+              </form>
           )}
           {currentStep === 3 && (
             <div className="space-y-6">

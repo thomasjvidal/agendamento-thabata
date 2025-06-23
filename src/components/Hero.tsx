@@ -117,8 +117,7 @@ const Hero = () => {
               style={{ animationDelay: "0.5s" }} 
               className="section-subtitle mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed opacity-0 animate-fade-in text-gray-950 font-normal text-base sm:text-lg text-left"
             >
-              Th Beauty Makeup Clinic • Barra Mansa - RJ<br/>
-              Maquiagem para Noivas • Cursos & Masterclasses • Automaquiagem
+              Noivas • Maquiagem • Penteado • Conteúdo de Mídia • Dia da Noiva
             </p>
             
             <div 

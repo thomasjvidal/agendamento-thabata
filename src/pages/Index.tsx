@@ -3,7 +3,6 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import HumanoidSection from "@/components/HumanoidSection";
 import SpecsSection from "@/components/SpecsSection";
-import FeaturedServices from "@/components/FeaturedServices";
 import DetailsSection from "@/components/DetailsSection";
 import ImageShowcaseSection from "@/components/ImageShowcaseSection";
 import Features from "@/components/Features";
@@ -13,7 +12,6 @@ import MadeByHumans from "@/components/MadeByHumans";
 import Footer from "@/components/Footer";
 import AppointmentForm from "@/components/AppointmentForm";
 import InstagramGallery from "@/components/InstagramGallery";
-import ThabataHeroSection from "@/components/ThabataHeroSection";
 
 const Index = () => {
   // Initialize intersection observer to detect when elements enter viewport
@@ -68,21 +66,6 @@ const Index = () => {
         <Hero />
         <HumanoidSection />
         <SpecsSection />
-        <section className="py-20 bg-gray-50" id="services">
-          <div className="section-container">
-            <div className="text-center mb-12 sm:mb-20">
-              <div className="pulse-chip mx-auto mb-3 sm:mb-4 fade-in-element">
-                <span>Serviços</span>
-              </div>
-              <h2 className="section-title mb-3 sm:mb-4 fade-in-element">Serviços</h2>
-              <p className="section-subtitle mx-auto fade-in-element">
-                Conheça nossos principais serviços de beleza e maquiagem profissional.
-              </p>
-            </div>
-            <ThabataHeroSection />
-          </div>
-        </section>
-        <FeaturedServices />
         <AppointmentForm />
         <InstagramGallery />
         {/* <DetailsSection /> */}

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { toast } from "sonner";
 const DetailsSection = () => {
@@ -38,6 +37,10 @@ const DetailsSection = () => {
   };
   return <section id="details" className="w-full bg-white py-0">
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
+        {/* Frase destaque sobre ela */}
+        <div className="text-center mb-8">
+          <span className="block text-2xl sm:text-3xl font-bold text-pulse-500">Brilhe do seu jeito ✨</span>
+        </div>
         <div className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2">
           {/* Left Card - The Details */}
           <div className="rounded-2xl sm:rounded-3xl overflow-hidden shadow-elegant">

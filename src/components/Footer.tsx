@@ -12,14 +12,19 @@ const Footer = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-8">
           {/* Contact Information */}
           <div>
-            <div className="text-primary text-3xl font-bold mb-8">Th Beauty Makeup Clinic</div>
+            <div className="text-primary text-3xl font-bold mb-8">Th Makeup Clinic</div>
             
             <div className="space-y-6 mb-8">
               <div className="flex items-start gap-4">
                 <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                 <div>
                   <p className="font-semibold text-zinc-200">Endereço:</p>
-                  <p className="text-zinc-400">Barra Mansa - RJ</p>
+                  <a href="https://www.google.com/maps/place/Pr%C3%A9dio+Barra+Business+-+R.+Abdo+Felipe,+85+-+Ano+Bom,+Barra+Mansa+-+RJ,+27323-000" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-[#d4af37] transition-colors block">
+                    Barra Mansa/RJ, 27323-000<br/>
+                    Ano Bom, R. Abdo Felipe, 85<br/>
+                    Prédio Barra Business<br/>
+                    Nº 101, sala 502
+                  </a>
                 </div>
               </div>
               
@@ -27,7 +32,9 @@ const Footer = () => {
                 <Phone className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                 <div>
                   <p className="font-semibold text-zinc-200">Telefone/WhatsApp:</p>
-                  <p className="text-zinc-400">Disponível via agendamento</p>
+                  <a href="https://wa.me/5524999226925" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-[#d4af37] transition-colors">
+                    (24) 99922-6925
+                  </a>
                 </div>
               </div>
 
@@ -35,17 +42,17 @@ const Footer = () => {
                 <Mail className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                 <div>
                   <p className="font-semibold text-zinc-200">Email:</p>
-                  <p className="text-zinc-400">thabatabraga@thbeautymakeup.com</p>
+                  <a href="mailto:thabatabragamakeup@gmail.com" className="text-zinc-400 hover:text-[#d4af37] transition-colors">
+                    thabatabragamakeup@gmail.com
+                  </a>
                 </div>
               </div>
               
               <div className="flex items-start gap-4">
                 <Clock className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                 <div>
-                  <p className="font-semibold text-zinc-200">Horário de atendimento:</p>
-                  <p className="text-zinc-400">Seg–Sex: 09h–18h</p>
-                  <p className="text-zinc-400">Sáb: 09h–16h</p>
-                  <p className="text-zinc-400">Dom: Sob consulta</p>
+                  <p className="font-semibold text-zinc-200">Horário de funcionamento:</p>
+                  <p className="text-zinc-400">Terça-feira a domingo: 09:00–22:00</p>
                 </div>
               </div>
             </div>

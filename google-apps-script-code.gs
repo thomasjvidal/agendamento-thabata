@@ -1,6 +1,6 @@
 /**
- * GOOGLE APPS SCRIPT - Sistema de Agendamento Dra. Daniele Ferreira
- * Versão 28 - Descrição limpa no Google Calendar (WhatsApp via email)
+ * GOOGLE APPS SCRIPT - Sistema de Agendamento Thábata Braga
+ * Versão 1 - Sistema de agendamento para maquiagem profissional
  */
 
 function doPost(e) {
@@ -26,20 +26,20 @@ function doPost(e) {
 
     // 📝 DESCRIÇÃO LIMPA E PROFISSIONAL
     const description = [
-      `📋 Detalhes da Consulta`,
+      `📋 Detalhes do Agendamento`,
       ``,
-      `👤 Paciente: ${data.patient_name}`,
+      `👤 Cliente: ${data.patient_name}`,
       `📞 Telefone: ${data.phone}`,
       `📧 Email: ${data.email}`,
       ``,
-      `🏥 Atendimento: ${data.appointment_type}`,
-      `🔬 Especialidade: ${especialidadeCap}`,
+      `💄 Serviço: ${data.appointment_type}`,
+      `🎨 Tipo: ${especialidadeCap}`,
       `💰 Valor: R$ ${data.appointment_value}`,
       ``,
       `📅 Data: ${dataFmt}`,
       `🕐 Horário: ${horaFmt}`,
       ``,
-      `📝 Observação: WhatsApp automático disponível via email da notificação`
+      `📝 Observação: Agendamento via site - Th Beauty Makeup Clinic`
     ].join('\n');
 
     // Criar evento usando a Calendar API avançada
@@ -56,7 +56,7 @@ function doPost(e) {
       },
       attendees: [
         { email: data.email },
-        { email: 'contatodradanieleferreira@gmail.com' }
+        { email: 'thabatabraga@thbeautymakeup.com' }
       ],
       conferenceData: {
         createRequest: {
@@ -100,7 +100,7 @@ function doPost(e) {
         success: true, 
         eventId: event.id,
         meetLink: meetLink,
-        message: 'Evento criado com sucesso! WhatsApp disponível via email.'
+        message: 'Evento criado com sucesso! Agendamento confirmado.'
       }))
       .setMimeType(ContentService.MimeType.JSON);
       
@@ -118,21 +118,21 @@ function doPost(e) {
 
 function doGet(e) {
   return ContentService
-    .createTextOutput('Sistema de Agendamento Dra. Daniele Ferreira - Versão 28 ✅')
+    .createTextOutput('Sistema de Agendamento Thábata Braga - Th Beauty Makeup Clinic ✅')
     .setMimeType(ContentService.MimeType.TEXT);
 }
 
 // Função de teste
 function testFunction() {
   const testData = {
-    patient_name: "Thomas J. Vidal",
-    appointment_type: "Primeira consulta",
-    consultation_type: "metabolismo",
-    appointment_date: "2025-06-11",
+    patient_name: "Cliente Teste",
+    appointment_type: "Primeiro Atendimento",
+    consultation_type: "maquiagem",
+    appointment_date: "2025-01-15",
     appointment_time: "14:00",
-    appointment_value: "350.00",
+    appointment_value: "250.00",
     email: "teste@email.com",
-    phone: "21999999999"
+    phone: "(24) 99999-9999"
   };
   
   const mockEvent = {

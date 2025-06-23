@@ -23,7 +23,8 @@ export const EMAILJS_CONFIG = {
 export const CONTACT_INFO = {
   email: "thabatabraga@thbeautymakeup.com",
   instagram: "@thabatabraga.makeup",
-  pixKey: "thabatabraga@thbeautymakeup.com" // Chave Pix
+  pixKey: "thabatabraga@thbeautymakeup.com", // Chave Pix
+  whatsapp: "5524999226925"
 };
 
 // Valores dos serviços

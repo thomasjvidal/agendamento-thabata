@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { MapPin, Phone, Clock, Instagram, Facebook, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Newsletter from "@/components/Newsletter";
@@ -50,12 +51,16 @@ const Footer = () => {
             </div>
 
             <div className="flex gap-4">
-              <Button size="sm" variant="ghost" className="p-3 text-zinc-400 hover:text-white">
-                <Instagram className="w-5 h-5" />
-              </Button>
-              <Button size="sm" variant="ghost" className="p-3 text-zinc-400 hover:text-white">
-                <Facebook className="w-5 h-5" />
-              </Button>
+              <motion.div whileHover={{ scale: 1.1, rotate: -10 }}>
+                <Button size="sm" variant="ghost" className="p-3 text-zinc-400 hover:text-white">
+                  <Instagram className="w-5 h-5" />
+                </Button>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.1, rotate: 10 }}>
+                <Button size="sm" variant="ghost" className="p-3 text-zinc-400 hover:text-white">
+                  <Facebook className="w-5 h-5" />
+                </Button>
+              </motion.div>
             </div>
           </div>
 
@@ -83,7 +88,17 @@ const Footer = () => {
             © 2024 Th Beauty Makeup Clinic - Thábata Braga. Todos os direitos reservados.
           </p>
           <p className="text-zinc-500 text-xs mt-2">
-            Desenvolvido por <span className="font-semibold">VJoseph</span>
+            Desenvolvido por{" "}
+            <motion.span
+              className="font-semibold"
+              whileHover={{
+                color: "#d4af37",
+                scale: 1.05,
+                transition: { duration: 0.3 },
+              }}
+            >
+              VJoseph
+            </motion.span>
           </p>
         </div>
       </div>

@@ -1,5 +1,19 @@
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
@@ -7,17 +21,42 @@ import { ArrowRight, ArrowLeft, Copy, Check, Loader2 } from "lucide-react";
 import emailjs from '@emailjs/browser';
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { EMAILJS_CONFIG, GOOGLE_CALENDAR_WEBAPP_URL, CONSULTATION_PRICES } from '@/config/constants';
+import { EMAILJS_CONFIG, GOOGLE_CALENDAR_WEBAPP_URL } from '@/config/constants';
 
+const brazilPhoneRegex = /^\+55\s?(\d{2})\s?9\d{4}-?\d{4}$/
 
-interface AppointmentData {
-  name: string;
-  email: string;
-  phone: string;
-  appointmentType: string;
-  specialty: string;
-  date: string;
-  time: string;
+const formSchema = z.object({
+  name: z.string().min(2, { message: "O nome deve ter pelo menos 2 caracteres." }),
+  email: z.string().email({ message: "Por favor, insira um endereço de e-mail válido." }),
+  phone: z.string().refine(value => brazilPhoneRegex.test(value), {
+    message: "Por favor, insira um número de WhatsApp válido no formato brasileiro (ex: +55 11 91234-5678).",
+  }),
+  specialty: z.string({ required_error: "Por favor, selecione um tipo de serviço." }),
+  appointmentType: z.string().optional().default("primeira"),
+  date: z.string({ required_error: "Por favor, selecione uma data." }),
+  time: z.string({ required_error: "Por favor, selecione um horário." }),
+})
+
+// Lista de países com códigos e bandeiras
+const countries = [
+  { code: '55', name: 'Brasil', flag: '🇧🇷' },
+  { code: '1', name: 'Estados Unidos', flag: '🇺🇸' },
+  { code: '351', name: 'Portugal', flag: '🇵🇹' },
+  { code: '34', name: 'Espanha', flag: '🇪🇸' },
+  { code: '33', name: 'França', flag: '🇫🇷' },
+  { code: '49', name: 'Alemanha', flag: '🇩🇪' },
+  { code: '39', name: 'Itália', flag: '🇮🇹' },
+  { code: '44', name: 'Reino Unido', flag: '🇬🇧' },
+  { code: '54', name: 'Argentina', flag: '🇦🇷' }
+];
+
+// Função para aplicar máscara de telefone brasileiro
+function formatPhoneMask(value: string) {
+  const numbers = value.replace(/\D/g, '');
+  if (numbers.length <= 0) return '';
+  if (numbers.length <= 2) return `(${numbers}`;
+  if (numbers.length <= 7) return `(${numbers.slice(0,2)}) ${numbers.slice(2)}`;
+  return `(${numbers.slice(0,2)}) ${numbers.slice(2,7)}-${numbers.slice(7,11)}`;
 }
 
 const AppointmentForm = () => {
@@ -26,30 +65,28 @@ const AppointmentForm = () => {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  // Estados simples para cada campo
-  const [formData, setFormData] = useState<AppointmentData>({
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
     name: "",
     email: "",
     phone: "",
-    appointmentType: "",
     specialty: "",
+      appointmentType: "primeira",
     date: "",
-    time: ""
-  });
-
-  const handleInputChange = (field: keyof AppointmentData, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
-  };
+      time: "",
+    },
+  })
 
   const getConsultationValue = () => {
-    if (!formData.specialty) {
-      return formData.appointmentType === 'primeira' ? 'R$ 250,00' : 'R$ 200,00';
+    const specialty = form.watch("specialty");
+    const appointmentType = form.watch("appointmentType");
+
+    if (!specialty) {
+      return appointmentType === 'primeira' ? 'R$ 250,00' : 'R$ 200,00';
     }
     
-    const serviceValues = {
+    const serviceValues: { [key: string]: string } = {
       'pacote-diamante': 'R$ 2.000,00',
       'pacote-ouro': 'R$ 1.500,00',
       'master-vip': 'R$ 3.000,00',
@@ -61,35 +98,24 @@ const AppointmentForm = () => {
       'baby-liss': 'R$ 100,00'
     };
     
-    return serviceValues[formData.specialty] || 'R$ 250,00';
+    return serviceValues[specialty] || 'R$ 250,00';
   };
 
-  const handleStep1Submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Step 1 data:", formData); // Debug
-    
-    // Validação básica
-    if (!formData.name || !formData.email || !formData.phone || !formData.specialty) {
-      toast({
-        title: "Campos obrigatórios",
-        description: "Por favor, preencha todos os campos.",
-        variant: "destructive"
-      });
-      return;
-    }
-    
+  const handleStep1Submit = (values: z.infer<typeof formSchema>) => {
+    console.log("Step 1 data:", values);
     setCurrentStep(2);
   };
 
   const handleStep2Submit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Step 2 data:", formData); // Debug
+    const date = form.getValues("date");
+    const time = form.getValues("time");
     
-    // Validação básica
-    if (!formData.date || !formData.time) {
+    if (!date || !time) {
+      form.trigger(["date", "time"]);
       toast({
         title: "Campos obrigatórios",
-        description: "Por favor, preencha todos os campos.",
+        description: "Por favor, preencha a data e o horário.",
         variant: "destructive"
       });
       return;
@@ -117,52 +143,13 @@ const AppointmentForm = () => {
   };
 
   const sendConfirmationEmail = async (appointmentData: any) => {
-    try {
-      console.log('🚀 Iniciando envio de e-mail...');
-      console.log('📧 Configuração EmailJS:', EMAILJS_CONFIG);
-      
-      const emailParams = {
-        to_name: appointmentData.nome,
-        to_email: appointmentData.email,
-        from_name: "Thábata Braga - Th Beauty Makeup Clinic",
-        patient_name: appointmentData.nome,
-        appointment_type: appointmentData.tipoAtendimento,
-        consultation_type: appointmentData.tipoConsulta,
-        appointment_date: appointmentData.data,
-        appointment_time: appointmentData.hora,
-        appointment_value: `R$ ${appointmentData.valor}`,
-        whatsapp: appointmentData.whatsapp,
-        doctor_name: "Thábata Braga"
-      };
-
-      console.log('📋 Parâmetros do e-mail:', emailParams);
-
-      // Verificar se o EmailJS está configurado
-      if (!EMAILJS_CONFIG.enabled || EMAILJS_CONFIG.publicKey === "YOUR_EMAILJS_PUBLIC_KEY") {
-        console.log('⚠️ EmailJS não configurado ainda. E-mail que seria enviado:', emailParams);
-        return { success: false, reason: 'not_configured' };
-      }
-
-      console.log('✅ EmailJS configurado, enviando e-mail...');
-
-      // Enviar e-mail real via EmailJS
-      const result = await emailjs.send(
-        EMAILJS_CONFIG.serviceId,
-        EMAILJS_CONFIG.templateId,
-        emailParams,
-        EMAILJS_CONFIG.publicKey
-      );
-
-      console.log('🎉 E-mail enviado com sucesso!', result);
-      return { success: true, reason: 'sent' };
-    } catch (error) {
-      console.error('❌ ERRO ao enviar e-mail:', error);
-      return { success: false, reason: 'error', error };
-    }
+    // This function seems to be unused, but we'll leave it for now.
+    // ... existing code ...
   };
 
   const confirmPayment = async () => {
     setIsSubmitting(true);
+    const formData = form.getValues();
     
     try {
       // ----- formatações "bonitas" -----
@@ -182,8 +169,6 @@ const AppointmentForm = () => {
         appointment_value: getConsultationValue().replace('R$ ', '').replace(',', '.'),
         email: formData.email,
         phone: formData.phone,
-
-        // campos só pro e-mail
         consultation_type_cap: especialidadeCap,
         appointment_date_fmt: dataFmt,
         appointment_time_fmt: horaFmt
@@ -308,6 +293,7 @@ const AppointmentForm = () => {
     }
   };
 
+  const formData = form.getValues();
   // Tela de confirmação
   if (isConfirmed) {
     return (
@@ -378,47 +364,95 @@ const AppointmentForm = () => {
           {currentStep === 1 && (
             <div className="space-y-6">
               <h3 className="text-xl font-semibold mb-4">Dados Pessoais</h3>
-              <form onSubmit={handleStep1Submit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Nome completo</label>
-                  <input 
-                    className="input-golden"
-                    placeholder="Seu nome completo" 
-                    value={formData.name}
-                    onChange={(e) => handleInputChange('name', e.target.value)}
-                    required
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(handleStep1Submit)} className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-base font-medium">Nome completo</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Seu nome completo" {...field} className="input-golden text-base h-12" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
-                  <input 
-                    className="input-golden"
-                    type="email" 
-                    placeholder="seu@email.com" 
-                    value={formData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
-                    required
+                  
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-base font-medium">E-mail</FormLabel>
+                        <FormControl>
+                          <Input placeholder="seu@email.com" {...field} className="input-golden text-base h-12" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">WhatsApp</label>
-                  <input 
-                    className="input-golden"
-                    placeholder="(11) 99999-9999" 
-                    value={formData.phone}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Tipo de serviço</label>
-                  <Select value={formData.specialty} onValueChange={(value) => handleInputChange('specialty', value)}>
-                    <SelectTrigger className="select-golden">
-                      <SelectValue placeholder="Selecione o serviço" />
+                  
+                  {/* WhatsApp igual Dani */}
+                  <div>
+                    <label className="block text-base font-medium text-gray-700 mb-2">WhatsApp</label>
+                    <div className="flex gap-2 items-stretch">
+                      <Select value={form.watch('countryCode') || '55'} onValueChange={v => form.setValue('countryCode', v)}>
+                        <SelectTrigger 
+                          className="w-32 h-12 border-0" 
+                          style={{
+                            border: '2px solid transparent',
+                            background: 'linear-gradient(white, white) padding-box, linear-gradient(135deg, #d4af37 0%, #b8941f 25%, #9c7a19 50%, #8b6f47 75%, #7a5f3d 100%) border-box',
+                            boxShadow: '0 4px 15px rgba(212, 175, 55, 0.15)',
+                            borderRadius: '0.75rem'
+                          }}
+                        >
+                          <SelectValue>
+                            {countries.find(c => c.code === (form.watch('countryCode') || '55')) ? (
+                              <div className="flex items-center gap-2">
+                                <span>{countries.find(c => c.code === (form.watch('countryCode') || '55'))?.flag}</span>
+                                <span>+{form.watch('countryCode') || '55'}</span>
+                              </div>
+                            ) : (
+                              <span>País</span>
+                            )}
+                          </SelectValue>
+                        </SelectTrigger>
+                        <SelectContent>
+                          {countries.map((country) => (
+                            <SelectItem key={country.code} value={country.code}>
+                              <div className="flex items-center gap-2">
+                                <span>{country.flag}</span>
+                                <span>+{country.code}</span>
+                                <span className="text-sm text-gray-500">{country.name}</span>
+                              </div>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <Input
+                        className="input-golden flex-1 h-12 text-base"
+                        placeholder="(99) 99999-9999"
+                        value={formatPhoneMask(form.watch('phone') || '')}
+                        onChange={e => form.setValue('phone', formatPhoneMask(e.target.value))}
+                        maxLength={15}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <FormField
+                    control={form.control}
+                    name="specialty"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Tipo de serviço</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                    <SelectTrigger className="select-golden text-base h-12">
+                      <SelectValue placeholder="Selecione o serviço" className="text-base" />
                     </SelectTrigger>
+                          </FormControl>
                     <SelectContent>
                       <SelectItem value="pacote-diamante">Pacote Diamante Noiva (R$ 2.000,00)</SelectItem>
                       <SelectItem value="pacote-ouro">Pacote Ouro Noiva (R$ 1.500,00)</SelectItem>
@@ -431,12 +465,16 @@ const AppointmentForm = () => {
                       <SelectItem value="baby-liss">Baby Liss (R$ 100,00)</SelectItem>
                     </SelectContent>
                   </Select>
-                </div>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 
                 <Button type="submit" className="button-primary w-full">
                   Próximo <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </form>
+              </Form>
             </div>
           )}
 
@@ -445,27 +483,30 @@ const AppointmentForm = () => {
             <div className="space-y-6">
               <h3 className="text-xl font-semibold mb-4">Detalhes</h3>
               <form onSubmit={handleStep2Submit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Data</label>
-                  <input 
-                    className="input-golden"
-                    type="date" 
-                    value={formData.date}
-                    onChange={(e) => handleInputChange('date', e.target.value)}
-                    required
-                  />
-                </div>
+                <FormField
+                  control={form.control}
+                  name="date"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Data</FormLabel>
+                      <FormControl>
+                        <Input type="date" {...field} className="input-golden" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Horário Preferido</label>
+                  <label className="block text-base font-medium text-gray-700 mb-2">Horário Preferido</label>
                   <div className="grid grid-cols-3 gap-3">
                     {['08:00', '09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00', '18:00'].map((time) => (
                       <button
                         key={time}
                         type="button"
-                        onClick={() => handleInputChange('time', time)}
+                        onClick={() => form.setValue('time', time, { shouldValidate: true })}
                         className={`py-3 px-4 rounded-xl text-sm font-medium transition-all duration-200 ${
-                          formData.time === time
+                          form.watch('time') === time
                             ? 'bg-pulse-500 text-white shadow-lg'
                             : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200'
                         }`}
@@ -474,6 +515,7 @@ const AppointmentForm = () => {
                       </button>
                     ))}
                   </div>
+                  <FormMessage>{form.formState.errors.time?.message}</FormMessage>
                 </div>
                 
                 <div className="flex gap-4">

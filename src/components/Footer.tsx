@@ -77,36 +77,13 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Services Quick Links */}
-        <div className="border-t border-gray-800 pt-8 mb-8">
-          <h4 className="text-lg font-semibold text-zinc-200 mb-4">Nossos Serviços</h4>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-zinc-400">
-            <div>
-              <p>• Pacote Diamante Noiva</p>
-              <p>• Pacote Ouro Noiva</p>
-            </div>
-            <div>
-              <p>• Master VIP</p>
-              <p>• Beauty Expert Class</p>
-            </div>
-            <div>
-              <p>• VIP Individual</p>
-              <p>• Maquiagem Profissional</p>
-            </div>
-            <div>
-              <p>• Penteados</p>
-              <p>• Baby Liss</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Copyright */}
+        {/* Rodapé inferior igual Dani */}
         <div className="border-t border-gray-800 pt-8 text-center">
           <p className="text-zinc-400 text-sm">
             © 2024 Th Beauty Makeup Clinic - Thábata Braga. Todos os direitos reservados.
           </p>
           <p className="text-zinc-500 text-xs mt-2">
-            Desenvolvido com ❤️ para realçar sua beleza natural
+            Desenvolvido por <span className="font-semibold">VJoseph</span>
           </p>
         </div>
       </div>
